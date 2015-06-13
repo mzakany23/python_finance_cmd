@@ -1,0 +1,10 @@
+LOG:  database system was shut down at 2015-06-07 15:42:31 EDT
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+FATAL:  database "pyperfin" does not exist
+FATAL:  database "perfin" does not exist
+FATAL:  database "pyperfin" does not exist
+ERROR:  column "spclocation" does not exist at character 32
+STATEMENT:  SELECT oid, spcname, spcowner, spclocation, spcacl, shobj_description(oid, 'pg_tablespace') AS comment FROM pg_tablespace
+ERROR:  column "spclocation" does not exist at character 32
+STATEMENT:  SELECT oid, spcname, spcowner, spclocation, spcacl, shobj_description(oid, 'pg_tablespace') AS comment FROM pg_tablespace
