@@ -1,6 +1,6 @@
 import unittest
 import sys
-from mock import patch
+from mock import patch, MagicMock
 
 sys.path.append('../lib')
 
@@ -27,10 +27,14 @@ class TestPythonXL(unittest.TestCase):
 			self.assertTrue(self.x.get_account('53').name == '53')
 
 	def test_upload_unique_transaction(self):
-			with patch.object(self.x, 'upload_transaction') as upload_transaction:
-				upload_transaction.return_value = 'Uploaded'
-				assert self.x.upload_transaction(self.dummy_transaction,'53') == 'Uploaded'
-		
+			with patch.object(self.x, 'upload_transaction', return_value='Uploaded') as mock_upload:
+				self.x.upload_transaction(self.dummy_transaction,'53')
+
+				assert len(mock_upload.call_args[0][0]) == 3
+			
+
+
+			
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,4 +1,11 @@
 import pony.orm as pny
+import sys
+import glob
+import os
+
+sys.path.append('../../models')
+
+from all_models import Account,Transaction
 
 class UploadMixin:
 	@pny.db_session
