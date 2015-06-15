@@ -25,16 +25,38 @@ class Query:
 
 		return DataFrame(frame,columns=cols)
 
+
+											
 	@pny.db_session
-	def months_transactions(self,month,year=2015):
-		last_day_of_month = calendar.monthrange(year,month)[1]
-		start = date(year,month,01).strftime("%m/%d/%Y")
-		end = date(year,month,last_day_of_month).strftime("%m/%d/%Y")
+	def get_transactions_by_range(self,account,month_from,month_to=None,year=2015):
+		if month_to is None:
+			month_to = datetime.today().month
+
+		account_id = Account.get(name=account).id
+		last_day_of_month = calendar.monthrange(year,month_to)[1]
+
+		
+		start = date(year,month_from,01).strftime("%m/%d/%Y")
+		end = date(year,month_to,last_day_of_month).strftime("%m/%d/%Y")
+
 		db = pny.Database(DB['type'],user=DB['user'],password=DB['password'],host=DB['host'],database=DB['database'])
-		query = "* from transaction where to_date(date, 'MM/DD/YYYY') > to_date('%s','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('%s','MM/DD/YYYY')" % (start, end)
+		
+		query = "* from transaction where to_date(date, 'MM/DD/YYYY') > to_date('%s','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('%s','MM/DD/YYYY') AND account = %s" % (start, end, account_id)
+		
 		return db.select(query)
-										
-			
+
 		
 
 		
+
+
+
+
+
+
+
+
+
+
+
+

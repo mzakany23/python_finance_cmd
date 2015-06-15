@@ -16,8 +16,12 @@ class TestPythonXL(unittest.TestCase):
 	def test_to_data_frame(self):
 		assert self.q.all_transactions('53').to_dataframe().__class__ == pandas.core.frame.DataFrame
 
-	def test_grab_months_transactions(self):
-		print self.q.months_transactions(6,2015)
+	def test_get_this_months_transactions(self):
+		assert self.q.get_transactions_by_range('53',6,6)	
+
+	def test_get_range_of_transactions(self):
+		assert self.q.get_transactions_by_range('53',3,4)
+
 
 if __name__ == '__main__':
     unittest.main()

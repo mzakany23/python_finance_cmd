@@ -66,3 +66,14 @@ ERROR:  syntax error at or near "<" at character 100
 STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') & < to_date('2015-06-30','MM/DD/YYYY')
 ERROR:  syntax error at or near "<" at character 102
 STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') AND < to_date('2015-06-30','MM/DD/YYYY')
+ERROR:  syntax error at or near "where" at character 171
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('06/30/2015','MM/DD/YYYY') AND where account == 1
+ERROR:  syntax error at or near "where" at character 171
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('06/30/2015','MM/DD/YYYY') AND where transaction.account == 1
+ERROR:  syntax error at or near "where" at character 171
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('06/30/2015','MM/DD/YYYY') AND where transaction.account = 1
+ERROR:  syntax error at or near "where" at character 171
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('06/30/2015','MM/DD/YYYY') AND where account = 1
+ERROR:  operator does not exist: integer == integer at character 179
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('06/30/2015','MM/DD/YYYY') AND account == 1
