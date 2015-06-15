@@ -22,6 +22,11 @@ class TestPythonXL(unittest.TestCase):
 	def test_get_range_of_transactions(self):
 		assert self.q.get_transactions_by_range('53',3,4)
 
+	def test_take_transactions_to_dataframe(self):
+		assert self.q.get_transactions_by_range('53',3,4).to_dataframe()
+
+	def test_take_transactions_to_dataframe(self):
+		print self.q.get_transactions_by_range('united',4,4).to_dataframe()
 
 if __name__ == '__main__':
     unittest.main()

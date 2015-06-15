@@ -8,7 +8,7 @@ sys.path.append('../models')
 sys.path.append('../')
 
 from all_models import Account,Transaction
-from enviornment_variables import DB
+from enviornment_variables import DB, DESCRIPTION_LENGTH
 
 class Query:
 
@@ -16,16 +16,6 @@ class Query:
 	def all_transactions(self,name):
 		self.frame = pny.select(t for t in Transaction if t.account.name == name)[:]
 		return self
-
-	def to_dataframe(self):
-		frame = []
-		cols = ['date','description', 'amount']
-		for x in self.frame:
-			frame.append([x.date, x.name[0:20], x.amount])
-
-		return DataFrame(frame,columns=cols)
-
-
 											
 	@pny.db_session
 	def get_transactions_by_range(self,account,month_from,month_to=None,year=2015):
@@ -41,14 +31,20 @@ class Query:
 
 		db = pny.Database(DB['type'],user=DB['user'],password=DB['password'],host=DB['host'],database=DB['database'])
 		
-		query = "* from transaction where to_date(date, 'MM/DD/YYYY') > to_date('%s','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('%s','MM/DD/YYYY') AND account = %s" % (start, end, account_id)
+		frame = "* from transaction where to_date(date, 'MM/DD/YYYY') > to_date('%s','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('%s','MM/DD/YYYY') AND account = %s" % (start, end, account_id)
 		
-		return db.select(query)
+		self.frame = db.select(frame)
 
-		
+		return self
 
-		
 
+	def to_dataframe(self):
+		frame = []
+		cols = ['date','description', 'amount']
+		for x in self.frame:
+			frame.append([x.date, x.name[0:DESCRIPTION_LENGTH], x.amount])
+
+		return DataFrame(frame,columns=cols)
 
 
 
