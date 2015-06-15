@@ -16,3 +16,8 @@ class Calculations:
 	def value_counts(self):
 		return self.df['description'].value_counts()
 
+	def sum(self):
+		return self.df['amount'].sum()
+
+	def mcz(self):
+		return self.df['description'].groupby('WEB')
