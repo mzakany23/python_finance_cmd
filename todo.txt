@@ -1,0 +1,3 @@
+work on setting up schema 
+work on testing uploading transactions
+make solid then work on integrating pyexcel as interface
