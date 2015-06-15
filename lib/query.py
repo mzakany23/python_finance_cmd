@@ -3,12 +3,13 @@ import sys
 from pandas import DataFrame
 from datetime import datetime, date
 import calendar
+import re
 
 sys.path.append('../models')
 sys.path.append('../')
 
 from all_models import Account,Transaction
-from enviornment_variables import DB, DESCRIPTION_LENGTH
+from enviornment_variables import DB
 
 class Query:
 
@@ -41,8 +42,10 @@ class Query:
 	def to_dataframe(self):
 		frame = []
 		cols = ['date','description', 'amount']
+		regex = re.compile(r"\X{0,10}[0-9]{0,10}", re.IGNORECASE)
 		for x in self.frame:
-			frame.append([x.date, x.name[0:DESCRIPTION_LENGTH], x.amount])
+			description = regex.sub('',x.name)
+			frame.append([x.date, description, x.amount])
 
 		return DataFrame(frame,columns=cols)
 

@@ -1,4 +1,8 @@
 pg_ctl -D pyperfin -l logfile start
-work on setting up schema 
-work on testing uploading transactions
-make solid then work on integrating pyexcel as interface
+
+
+ - upload
+ - query
+ - make excel file with summary, account1, account2 tabs
+
+ 

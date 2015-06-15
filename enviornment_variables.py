@@ -6,5 +6,3 @@ ACCOUNT_NAMES = {
 	'united' : [2,3,4]
 }
 
-DESCRIPTION_LENGTH = 30
-
