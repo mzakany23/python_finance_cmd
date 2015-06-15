@@ -1,5 +1,4 @@
-# must match whats in the database
-# {'name_of_accoun' : [which columns]}
+from postgres import DB
 
 ACCOUNT_NAMES = {
 	'53' : [0,1,3],
@@ -9,10 +8,3 @@ ACCOUNT_NAMES = {
 
 DESCRIPTION_LENGTH = 30
 
-DB = {
-	'type' : 'postgres',
-	'user' : 'mzakany',
-	'password' : 'zekezeke23',
-	'host' : 'localhost',
-	'database' : 'pyperfin'
-}
