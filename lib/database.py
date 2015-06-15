@@ -6,10 +6,11 @@ import sys
 
 sys.path.append('../models')
 sys.path.append('../lib/modules')
+sys.path.append('../')
 
 from all_models import Account,Transaction
 from mixins import UploadMixin
-
+from enviornment_variables import ACCOUNT_NAMES
 
 class Database(UploadMixin):
 	'''
@@ -23,22 +24,47 @@ class Database(UploadMixin):
 
 		self.dir_location = folder_location
 
-	def upload_file_to_database(self):
-		return pd.read_csv("../files/csv/53.csv")
+	def upload_files_to_database(self):
+		uploads = self.get_csv_file_paths_to_upload()
+		success = False
+
+		if uploads is not False:
+			for file in uploads:
+				for account in ACCOUNT_NAMES.iteritems():
+					name_of_account_in_hash = str(account[0])
+					name_of_account_in_files_folder = str(os.path.basename(file).lower())
+					
+					if name_of_account_in_hash + '.csv' == name_of_account_in_files_folder:
+						
+						for row in pd.read_csv(file).iterrows():
+							data_frame_row = row[1]
+							account_hash_options = account[1]
+
+							date = data_frame_row[account_hash_options[0]] 
+							description = data_frame_row[account_hash_options[1]]
+							amount = data_frame_row[account_hash_options[2]]
+
+							formatted_row = [date,description,amount]
+														
+							self.upload_transaction(formatted_row,name_of_account_in_hash)
+
+							success = True
+						
+			return success
+					
 
 	
 	@pny.db_session
 	def upload_transaction(self,transaction,account_name):
-		trans = self.transaction_exists(transaction,account_name)
+		transaction_exists = self.transaction_exists(transaction,account_name)
 
-		if trans.exists == True:
+		if transaction_exists == True:
 			return 'Already in the database'
 		else:
-			if trans.type == '53':
-				date = transaction[0]
-				name = transaction[1]
-				amount = transaction[2]
-				account = Account.get(id=1)
-
-				Transaction(date=date,name=name,amount=amount,account=account)
+			date = transaction[0]
+			name = transaction[1]
+			amount = transaction[2]
+			account = Account.get(name=account_name)
+			
+			Transaction(date=date,name=name,amount=amount,account=account)
 

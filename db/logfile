@@ -8,3 +8,61 @@ ERROR:  column "spclocation" does not exist at character 32
 STATEMENT:  SELECT oid, spcname, spcowner, spclocation, spcacl, shobj_description(oid, 'pg_tablespace') AS comment FROM pg_tablespace
 ERROR:  column "spclocation" does not exist at character 32
 STATEMENT:  SELECT oid, spcname, spcowner, spclocation, spcacl, shobj_description(oid, 'pg_tablespace') AS comment FROM pg_tablespace
+ERROR:  column "date_of_join" does not exist at character 13
+STATEMENT:  select name,date_of_join from transaction;
+ERROR:  column "date_of_join" does not exist at character 13
+STATEMENT:  select name,date_of_join from Transaction;
+ERROR:  relation "transactions" does not exist at character 26
+STATEMENT:  select now() - date from Transactions;
+ERROR:  relation "transactions" does not exist at character 34
+STATEMENT:  select now() - date as days from Transactions;
+ERROR:  operator does not exist: timestamp with time zone - text at character 14
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+STATEMENT:  select now() - date as days from transaction;
+ERROR:  column "date" does not exist at character 16
+STATEMENT:  select to_date(date);
+ERROR:  column "date" does not exist at character 16
+STATEMENT:  select to_date(date,'Mon DD YYYY');
+ERROR:  function to_char(text, unknown) does not exist at character 8
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+STATEMENT:  SELECT to_char("date", 'MM/DD/YYYY') FROM transaction;
+ERROR:  function to_char(text, unknown) does not exist at character 8
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+STATEMENT:  SELECT to_char("date", 'MM/DD/YYYY') FROM transaction;
+ERROR:  invalid value "10A" for "Mon"
+DETAIL:  The given value did not match any of the allowed values for this field.
+STATEMENT:  SELECT to_date('10Apr1996', 'MonDDYYYY');
+ERROR:  invalid value "da" for "MM"
+DETAIL:  Value must be an integer.
+STATEMENT:  SELECT * from transaction where to_date('date', 'MM/DD/YYYY') < now()
+	;
+ERROR:  operator does not exist: date < integer at character 61
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') < 2015-06-01
+ERROR:  operator does not exist: date < integer at character 61
+HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') < 06/01/2015
+ERROR:  function to_date(integer, unknown) does not exist at character 63
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') < to_date(06/01/2015,'MM/DD/YYYY')
+ERROR:  function to_date(integer, unknown) does not exist at character 63
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') < to_date(06/01/2015,'MM/DD/YYYY')
+ERROR:  function to_date(integer, unknown) does not exist at character 63
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') < to_date(06/01/2015,'MM/DD/YYYY')
+ERROR:  function to_date(integer, unknown) does not exist at character 63
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') < to_date(06/01/2015,'MM/DD/YYYY')
+ERROR:  function to_date(integer, unknown) does not exist at character 63
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') < to_date(06/01/2015,'MM/DD/YYYY')
+ERROR:  function to_date(integer, unknown) does not exist at character 63
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') < to_date(06/01/2015,'MM/DD/YYYY')
+ERROR:  syntax error at or near "<" at character 101
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') && < to_date('2015-06-30','MM/DD/YYYY')
+ERROR:  syntax error at or near "<" at character 100
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') & < to_date('2015-06-30','MM/DD/YYYY')
+ERROR:  syntax error at or near "<" at character 102
+STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') AND < to_date('2015-06-30','MM/DD/YYYY')
