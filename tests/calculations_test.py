@@ -28,10 +28,17 @@ class TestPythonXL(unittest.TestCase):
 		qs = Calculations(june_transactions)
 		assert qs.sum()
 
-	def test_mcz(self):
-		june_transactions = self.q.get_transactions_by_range('53',6,6)
+	def test_summary(self):
+		june_transactions = self.q.get_transactions_by_range('53',4,6)
 		qs = Calculations(june_transactions)
-		print qs.mcz()		
+		print qs.summary()
+		# for record in qs.summary().iteritems():
+		# 	print record[0]
+		# 	for x in record[1]['grouped_transaction']:
+		# 		print x
+		# 	print record[1]['sum']
+
+
 
 if __name__ == '__main__':
     unittest.main()

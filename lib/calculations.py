@@ -1,6 +1,7 @@
 import sys
 import pony.orm as pny
 import pandas as pd
+from pandas import DataFrame
 
 sys.path.append('../models')
 
@@ -19,5 +20,34 @@ class Calculations:
 	def sum(self):
 		return self.df['amount'].sum()
 
-	def mcz(self):
-		return self.df['description'].groupby('WEB')
+	def summary(self):
+		
+		rows = {}
+
+		for line in self.df.iterrows():
+			date = line[1][0]
+			name = line[1][1]
+			amount = line[1][2]
+
+			if name in rows.keys():
+				rows[name]['grouped_transaction'].append([date,name,amount])
+				rows[name]['sum'] += amount
+				
+			else:
+				rows[name] = {
+					'grouped_transaction' : [],
+					'sum' : 0
+				}
+				
+				rows[name]['grouped_transaction'].append([date,name,amount])
+		
+		return rows
+		# return DataFrame(rows)
+
+
+
+			
+		
+		
+
+		

@@ -9,7 +9,7 @@ sys.path.append('../models')
 sys.path.append('../')
 
 from all_models import Account,Transaction
-from enviornment_variables import DB
+from enviornment_variables import DB, DESCRIPTION_LENGTH
 
 class Query:
 
@@ -45,7 +45,7 @@ class Query:
 		regex = re.compile(r"\X{0,10}[0-9]{0,10}", re.IGNORECASE)
 		for x in self.frame:
 			description = regex.sub('',x.name)
-			frame.append([x.date, description, x.amount])
+			frame.append([x.date, description[0:DESCRIPTION_LENGTH], x.amount])
 
 		return DataFrame(frame,columns=cols)
 
