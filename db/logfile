@@ -77,3 +77,11 @@ STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_dat
 ERROR:  operator does not exist: integer == integer at character 179
 HINT:  No operator matches the given name and argument type(s). You might need to add explicit type casts.
 STATEMENT:  select * from transaction where to_date(date, 'MM/DD/YYYY') > to_date('06/01/2015','MM/DD/YYYY') AND to_date(date, 'MM/DD/YYYY') < to_date('06/30/2015','MM/DD/YYYY') AND account == 1
+LOG:  database system was interrupted; last known up at 2015-06-14 19:31:07 EDT
+LOG:  database system was not properly shut down; automatic recovery in progress
+LOG:  record with zero length at 0/182CE30
+LOG:  redo is not required
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+ERROR:  column "spclocation" does not exist at character 32
+STATEMENT:  SELECT oid, spcname, spcowner, spclocation, spcacl, shobj_description(oid, 'pg_tablespace') AS comment FROM pg_tablespace

@@ -21,6 +21,17 @@ class Calculations:
 		return self.df['amount'].sum()
 
 	def summary(self):
+		df = self.df
+		summed_amount = df['amount'].sum()
+		col = [x for x in df.groupby('description').count()['amount']]
+		
+		new_frame = df.groupby('description').aggregate(sum)
+		new_frame['count'] = col
+		new_frame['%/whole'] = new_frame['amount']/summed_amount
+
+		return new_frame
+
+	def grouped_by_occurance(self):
 		
 		rows = {}
 
@@ -41,9 +52,8 @@ class Calculations:
 				
 				rows[name]['grouped_transaction'].append([date,name,amount])
 		
-		return rows
-		# return DataFrame(rows)
-
+		return DataFrame(rows)
+	
 
 
 			
