@@ -31,6 +31,10 @@ class Calculations:
 
 		return new_frame
 
+	def date_range(self):
+		arr = [x[1][0] for x in self.df.iterrows()]
+		return [arr[0],arr[len(arr)-1]]
+
 	def grouped_by_occurance(self):
 		
 		rows = {}

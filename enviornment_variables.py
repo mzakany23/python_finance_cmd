@@ -8,3 +8,9 @@ ACCOUNT_NAMES = {
 
 DESCRIPTION_LENGTH = 30
 
+PATH = {
+	'folder' : '/Users/mzakany/Desktop/',
+	'filename' : 'demo',
+	'extension' : '.xlsx'
+}
+
